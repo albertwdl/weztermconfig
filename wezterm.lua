@@ -236,10 +236,39 @@ config.colors = {
 -- 毛玻璃效果 开启之后拖动窗口超高延迟
 -- config.win32_system_backdrop = "Acrylic"
 
--- return {
---     font = wezterm.font_with_fallback {
---         {'JetBrains Mono', { weight = 'Bold', italic = false }},
---         {'PowerlineSymbols'},
---     },
--- }
+-- 配置鼠标
+config.mouse_bindings = {
+    {
+		-- right clink select (not wezterm copy mode),copy, and if don't select anything, paste
+		-- https://github.com/wez/wezterm/discussions/3541#discussioncomment-5633570
+		event = { Down = { streak = 1, button = 'Right' } },
+		mods = "NONE",
+		action = wezterm.action_callback(function(window, pane)
+			local has_selection = window:get_selection_text_for_pane(pane) ~= ""
+			if has_selection then
+				window:perform_action(wezterm.action.CopyTo("ClipboardAndPrimarySelection"), pane)
+				window:perform_action(wezterm.action.ClearSelection, pane)
+			else
+				window:perform_action(wezterm.action({
+					PasteFrom = "Clipboard"
+				}), pane)
+			end
+		end)
+	},
+	-- Change the default click behavior so that it only selects
+	-- text and doesn't open hyperlinks
+	{
+		event = { Up = { streak = 1, button = 'Left' } },
+		mods = 'NONE',
+		-- action = act.CompleteSelection('ClipboardAndPrimarySelection'),
+		action = wezterm.action.Nop
+	},
+	-- and make CTRL-Click open hyperlinks
+	{
+		event = { Up = { streak = 1, button = 'Left' } },
+		mods = 'CTRL',
+		action = wezterm.action.OpenLinkAtMouseCursor,
+	},
+}
+
 return config
