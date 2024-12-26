@@ -17,8 +17,7 @@ local color = (function()
       COLOR.JET,
       COLOR.TAUPE,
       COLOR.ECRU,
-      COLOR.VIOLET,
-      COLOR.VERDIGRIS
+      COLOR.VIOLET
     }
   
     return coolors[math.random(#coolors)]
@@ -40,8 +39,13 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 end
 
 -- 配置字体
-config.font = wezterm.font('JetBrains Mono', { weight = 'Bold', italic = false })
-config.font_size = 12.0
+-- local custom_font = wezterm.font_with_fallback({{'JetBrains Mono', { weight = 'Bold', italic = false }}, "PowerlineSymbols"})
+
+config.font = wezterm.font_with_fallback {
+    { family = 'JetBrains Mono', weight = 'Bold', italic = false },
+    { family = 'FiraCode Nerd Font', weight = 'Medium', italic = false }
+}
+config.font_size = 11.0
 
 
 -- 默认终端
@@ -53,20 +57,24 @@ config.launch_menu = custom_launch_menu
 -- 快捷键
 config.keys = {
     { key = 'w', mods = 'ALT', action = wezterm.action.ShowLauncher },
+    { key = '9', mods = 'ALT', action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
 }
 
 -- 窗口透明度
 config.window_background_opacity = 0.97
 
 -- 颜色主题
-config.color_scheme = 'Apprentice (base16)'
+-- config.color_scheme = 'Apprentice (base16)'
+-- config.color_scheme = 'Alien Blood (Gogh)'
+config.color_scheme = 'Apprentice (Gogh)'
+-- config.color_scheme = 'Atom'
 
 -- 窗口配置
 config.window_frame = {
     -- 字体
     font = wezterm.font('JetBrains Mono', { weight = 'Bold', italic = true }),
     -- 字体大小
-    font_size = 12.0,
+    font_size = 11.0,
     -- title bar背景色
     active_titlebar_bg = title_color_bg,
     inactive_titlebar_bg = title_color_bg
@@ -94,7 +102,7 @@ config.switch_to_last_active_tab_when_closing_tab = true
 
 
 -- GPU加速 开启之后会打开速度变慢 所以不开启
--- config.term = "xterm-256color"
+config.term = "xterm-256color"
 -- config.animation_fps = 60
 -- config.max_fps = 60
 -- config.front_end = "WebGpu"
@@ -228,4 +236,10 @@ config.colors = {
 -- 毛玻璃效果 开启之后拖动窗口超高延迟
 -- config.win32_system_backdrop = "Acrylic"
 
+-- return {
+--     font = wezterm.font_with_fallback {
+--         {'JetBrains Mono', { weight = 'Bold', italic = false }},
+--         {'PowerlineSymbols'},
+--     },
+-- }
 return config
