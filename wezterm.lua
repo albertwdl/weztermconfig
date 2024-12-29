@@ -36,20 +36,31 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
         label = "MSYS UCRT64",
         args = { "cmd.exe", "/k", "D:/Software/msys64/msys2_shell.cmd -ucrt64 -defterm -no-start -here" }
     })
+    -- 默认终端
+    config.default_prog = { "cmd.exe", "/k", "D:/Software/msys64/msys2_shell.cmd -ucrt64 -defterm -no-start -here" }
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+    table.insert(custom_launch_menu, {
+        label = 'zsh',
+        args = {'/bin/zsh', '-l'}
+    })
+    -- 默认终端
+    config.default_prog = {'/bin/zsh', '-l'}
 end
 
 -- 配置字体
--- local custom_font = wezterm.font_with_fallback({{'JetBrains Mono', { weight = 'Bold', italic = false }}, "PowerlineSymbols"})
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+    config.font = wezterm.font_with_fallback {
+        { family = 'JetBrains Mono', weight = 'Bold', italic = false },
+        { family = 'FiraCode Nerd Font', weight = 'Medium', italic = false }
+    }
+    config.font_size = 11.0
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+    config.font = wezterm.font_with_fallback {
+        { family = 'MesloLGS Nerd Font Mono', weight = 'Bold', italic = false },
+    }
+    config.font_size = 11.0
+end
 
-config.font = wezterm.font_with_fallback {
-    { family = 'JetBrains Mono', weight = 'Bold', italic = false },
-    { family = 'FiraCode Nerd Font', weight = 'Medium', italic = false }
-}
-config.font_size = 11.0
-
-
--- 默认终端
-config.default_prog = { "cmd.exe", "/k", "D:/Software/msys64/msys2_shell.cmd -ucrt64 -defterm -no-start -here" }
 
 -- 终端列表
 config.launch_menu = custom_launch_menu
@@ -100,13 +111,23 @@ config.tab_max_width = 25
 config.show_tab_index_in_tab_bar = false -- tab标签显示编号
 config.switch_to_last_active_tab_when_closing_tab = true
 
-
--- GPU加速 开启之后会打开速度变慢 所以不开启
+-- 配置终端颜色类型
 config.term = "xterm-256color"
--- config.animation_fps = 60
--- config.max_fps = 60
--- config.front_end = "WebGpu"
--- config.webgpu_power_preference = "HighPerformance"
+
+-- GPU加速
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+    -- 开启之后会打开速度变慢 所以不开启
+    -- config.animation_fps = 60
+    -- config.max_fps = 60
+    -- config.front_end = "WebGpu"
+    -- config.webgpu_power_preference = "HighPerformance"
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+    config.animation_fps = 60
+    config.max_fps = 60
+    config.front_end = "WebGpu"
+    config.webgpu_power_preference = "HighPerformance"
+end
+
 
 -- 关闭窗口不提示
 config.window_close_confirmation = 'NeverPrompt'
@@ -233,8 +254,13 @@ config.colors = {
     
 }
 
--- 毛玻璃效果 开启之后拖动窗口超高延迟
--- config.win32_system_backdrop = "Acrylic"
+-- 毛玻璃效果
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+    -- 开启之后拖动窗口超高延迟
+    config.win32_system_backdrop = "Acrylic"
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+    config.macos_window_background_blur = 10
+end
 
 -- 配置鼠标
 config.mouse_bindings = {

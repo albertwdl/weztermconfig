@@ -39,9 +39,5 @@ return {
   VIOLET = {
     bg = wezterm.color.parse("#685F74"),
     fg = color_default_fg_light
-  },
-  VERDIGRIS = {
-    bg = wezterm.color.parse("#28AFB0"),
-    fg = color_default_fg_dark
   }
 }
