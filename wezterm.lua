@@ -33,11 +33,19 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
         args = { "pwsh.exe", "-nol" },
     })
     table.insert(custom_launch_menu, {
-        label = "MSYS UCRT64",
-        args = { "cmd.exe", "/k", "D:/Software/msys64/msys2_shell.cmd -ucrt64 -defterm -no-start -here" }
+        label = "Ubuntu24",
+        args = { "ubuntu2404.exe" }
+    })
+    table.insert(custom_launch_menu, {
+        label = "GitBash",
+        args = { "C:/Software/Git/bin/bash.exe", "-i", "-l" }
+    })
+    table.insert(custom_launch_menu, {
+        label = "Cmd",
+        args = { "cmd.exe" }
     })
     -- 默认终端
-    config.default_prog = { "cmd.exe", "/k", "D:/Software/msys64/msys2_shell.cmd -ucrt64 -defterm -no-start -here" }
+    config.default_prog = { "ubuntu2404.exe" }
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
     table.insert(custom_launch_menu, {
         label = 'zsh',
@@ -72,7 +80,7 @@ config.keys = {
 }
 
 -- 窗口透明度
-config.window_background_opacity = 0.97
+config.window_background_opacity = 0.8
 
 -- 颜色主题
 -- config.color_scheme = 'Apprentice (base16)'
