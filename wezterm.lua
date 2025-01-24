@@ -267,7 +267,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
     -- 开启之后拖动窗口超高延迟
     config.win32_system_backdrop = "Acrylic"
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
-    config.macos_window_background_blur = 10
+    config.macos_window_background_blur = 30
 end
 
 -- 配置鼠标
