@@ -64,7 +64,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
     config.font_size = 11.0
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
     config.font = wezterm.font_with_fallback {
-        { family = 'MesloLGS Nerd Font Mono', weight = 'Bold', italic = false },
+        { family = 'JetBrainsMono Nerd Font', weight = 'Bold', italic = false },
     }
     config.font_size = 11.0
 end
@@ -91,7 +91,7 @@ config.color_scheme = 'Apprentice (Gogh)'
 -- 窗口配置
 config.window_frame = {
     -- 字体
-    font = wezterm.font('JetBrains Mono', { weight = 'Bold', italic = true }),
+    font = wezterm.font('JetBrainsMono Nerd Font', { weight = 'Bold', italic = true }),
     -- 字体大小
     font_size = 11.0,
     -- title bar背景色
