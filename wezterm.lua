@@ -259,7 +259,8 @@ config.colors = {
       },
     },
     split = title_color_bg:lighten(0.3):desaturate(0.5),
-    
+    -- 滚动条滑块颜色
+    scrollbar_thumb = "#AAAAAA",  -- 红色滑块
 }
 
 -- 毛玻璃效果
