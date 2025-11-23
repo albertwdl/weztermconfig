@@ -80,7 +80,7 @@ config.keys = {
 }
 
 -- 窗口透明度
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.95
 
 -- 颜色主题
 -- config.color_scheme = 'Apprentice (base16)'
